@@ -1,0 +1,43 @@
+/* ===== TOOLBAR ===== */
+.toolbar{height:var(--toolbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 6px;gap:3px;flex-shrink:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+.toolbar::-webkit-scrollbar{display:none}
+.tbar-left{display:flex;align-items:center;gap:3px;flex:1;min-width:0}
+.tbar-center{display:flex;align-items:center;gap:5px;flex-shrink:0;padding:0 8px}
+.tbar-right{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.tdivider{width:1px;height:22px;background:var(--border);flex-shrink:0;margin:0 3px}
+.tgroup{display:flex;align-items:center;gap:1px;flex-shrink:0}
+.tool-logo{background:transparent;border:none;padding:5px;border-radius:var(--rs);display:flex;align-items:center;transition:background .15s;flex-shrink:0}
+.tool-logo:hover{background:var(--surface2)}
+.tbtn{display:flex;align-items:center;gap:4px;padding:5px 8px;background:transparent;border:1px solid transparent;border-radius:var(--rs);color:var(--t2);font-size:11.5px;font-weight:500;transition:all .13s;white-space:nowrap;flex-shrink:0}
+.tbtn:hover{background:var(--surface2);color:var(--t1);border-color:var(--border)}
+.tbtn.active,.ttoggle.active{background:var(--accent-s);color:var(--accent);border-color:rgba(232,64,42,.28)}
+.tbtn-accent{color:var(--accent);border-color:rgba(232,64,42,.2);background:var(--accent-s)}
+.tbtn-accent:hover{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}
+.tbtn-more{color:var(--t2)}
+.zoom-btn{font-family:var(--mono);font-size:11.5px;color:var(--t2);min-width:40px;text-align:center;padding:4px 6px;border:1px solid transparent;border-radius:var(--rs);background:transparent;cursor:pointer;transition:all .13s}
+.zoom-btn:hover{background:var(--surface2);border-color:var(--border);color:var(--t1)}
+.pnav{background:transparent;border:1px solid var(--border);color:var(--t2);width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:var(--rs);font-size:16px;line-height:1;transition:all .13s}
+.pnav:hover{background:var(--surface2);color:var(--t1)}
+.pnav:disabled{opacity:.3;cursor:default}
+.page-row{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--t2)}
+.page-row input{width:42px;text-align:center;padding:4px;font-size:11.5px;font-family:var(--mono)}
+.page-sep{color:var(--t3)}
+.annot-controls{display:flex;align-items:center;gap:5px;padding:0 4px}
+.annot-controls input[type="range"]{width:56px}
+.shape-sel{width:auto;font-size:11px;padding:3px 5px}
+.fill-lbl{font-size:11px;color:var(--t2);display:flex;align-items:center;gap:3px;cursor:pointer;white-space:nowrap}
+/* Dropdown */
+.dd-wrap{position:relative;flex-shrink:0}
+.dd-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-lg);min-width:180px;padding:4px;z-index:500;animation:ddIn .15s ease}
+@keyframes ddIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.dd-item{display:flex;align-items:center;gap:8px;padding:8px 12px;background:transparent;border:none;color:var(--t2);font-size:12.5px;width:100%;text-align:left;border-radius:var(--rs);transition:all .12s}
+.dd-item:hover{background:var(--surface2);color:var(--t1)}
+.dd-sep{height:1px;background:var(--border);margin:4px 0}
+/* Search bar */
+.search-bar{height:var(--search-h);background:var(--surface2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;padding:0 12px;flex-shrink:0}
+.search-bar input{flex:1;max-width:320px;padding:5px 10px;font-size:13px}
+.srch-status{font-size:11px;color:var(--t3);font-family:var(--mono);min-width:80px}
+.sbar-btn{background:transparent;border:1px solid var(--border);color:var(--t2);width:24px;height:24px;border-radius:var(--rs);font-size:15px;display:flex;align-items:center;justify-content:center}
+.sbar-btn:hover{background:var(--surface3)}
+.sbar-close{margin-left:auto;background:transparent;border:none;color:var(--t3);font-size:14px;cursor:pointer}
+.sbar-close:hover{color:var(--t1)}

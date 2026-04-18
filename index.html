@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PDF Studio — Free PDF Editor</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'><rect width='36' height='36' rx='8' fill='%23E8402A'/><path d='M10 8h11l7 7v13H10V8z' stroke='white' stroke-width='1.5' fill='none'/><path d='M21 8v7h7' stroke='white' stroke-width='1.5' fill='none'/></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/toolbar.css"/>
+  <link rel="stylesheet" href="css/sidebar.css"/>
+  <link rel="stylesheet" href="css/viewer.css"/>
+  <link rel="stylesheet" href="css/modals.css"/>
+</head>
+<body>
+
+<!-- LANDING -->
+<div id="landing" class="landing active">
+  <div class="landing-bg">
+    <div class="grid-lines"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="landing-content">
+    <div class="brand">
+      <div class="brand-icon"><svg width="32" height="32" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="9" fill="#E8402A"/><path d="M10 8h11l7 7v13H10V8z" fill="white" opacity="0.15"/><path d="M10 8h11l7 7v13H10V8z" stroke="white" stroke-width="1.5"/><path d="M21 8v7h7" stroke="white" stroke-width="1.5"/><path d="M14 18h8M14 22h5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <span class="brand-name">PDF Studio</span>
+      <span class="brand-badge">FREE &amp; PRIVATE</span>
+    </div>
+    <h1>The PDF editor<br/>that respects you</h1>
+    <p class="subtitle">Everything Adobe charges for — view, annotate, draw, sign, merge, split, compress, password-protect — free, forever, private.</p>
+    <div class="feature-pills">
+      <span>📄 View &amp; Navigate</span><span>✏️ Text Annotations</span><span>🖊️ Freehand Draw</span>
+      <span>📐 Shapes</span><span>✍️ Digital Signature</span><span>🟡 Highlight</span>
+      <span>🗒️ Sticky Notes</span><span>🔗 Merge PDFs</span><span>✂️ Split &amp; Extract</span>
+      <span>📦 Compress</span><span>💧 Watermark</span><span>🔢 Page Numbers</span>
+      <span>🔍 Search Text</span><span>🖼️ Export as Image</span><span>🔒 Password Protect</span>
+      <span>↩️ Undo / Redo</span><span>🌙 Dark / Light Mode</span><span>🖨️ Print</span>
+    </div>
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-anim">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none"><circle cx="26" cy="26" r="24" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 4"/><path d="M26 16v16M20 26l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 36h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <p class="drop-title">Drop your PDF here</p>
+      <p class="drop-or">or</p>
+      <label class="btn-primary" for="fileInput">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 5l3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        Choose File
+      </label>
+      <input type="file" id="fileInput" accept=".pdf,application/pdf" multiple style="display:none"/>
+      <p class="drop-note">🔒 100% private · Files never leave your device · No account needed</p>
+    </div>
+    <div class="quick-tools">
+      <p class="quick-label">Quick Tools</p>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="App.openMergeTool()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 6h7M4 12h7M4 18h7M13 9l3-3 3 3M13 15l3 3 3-3M16 6v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Merge PDFs</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('split')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 12h16M12 4v4M12 16v4M8 8l-4 4 4 4M16 8l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Split PDF</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('compress')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M10 6h1a3 3 0 013 3v1M13 18h-1a3 3 0 01-3-3v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Compress</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('watermark')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 17L9 7l6 10H3zM12 17l3-6 3 6h-6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Watermark</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('pagenums')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="2" width="12" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v6M6 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Page Numbers</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('password')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 11V7a4 4 0 018 0v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="12" cy="16" r="1.5" fill="currentColor"/></svg><span>Password</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('rotate')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4.5 10a7.5 7.5 0 1115 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M19.5 10l-2-2.5-2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="12" width="10" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/></svg><span>Rotate PDF</span></button>
+        <button class="quick-btn" onclick="App.openQuickTool('export')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="14" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="7" r="1.5" stroke="currentColor" stroke-width="1.1"/><path d="M3 12l4-4 4 4 3-3 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 19h14M17 16l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Export Image</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="app" class="app hidden">
+  <header class="toolbar">
+    <div class="tbar-left">
+      <button class="tool-logo" id="btnHome" title="Home">
+        <svg width="22" height="22" viewBox="0 0 36 36" fill="none"><rect width="36" height="36" rx="8" fill="#E8402A"/><path d="M10 8h11l7 7v13H10V8z" fill="white" opacity="0.2"/><path d="M10 8h11l7 7v13H10V8z" stroke="white" stroke-width="1.4"/><path d="M21 8v7h7" stroke="white" stroke-width="1.4"/></svg>
+      </button>
+      <div class="tdivider"></div>
+      <div class="tgroup">
+        <button class="tbtn" id="btnOpen" title="Open (Ctrl+O)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4a1 1 0 011-1h3l2 2h5a1 1 0 011 1v6a1 1 0 01-1 1H3a1 1 0 01-1-1V4z" stroke="currentColor" stroke-width="1.2"/></svg><span>Open</span></button>
+        <button class="tbtn" id="btnSave" title="Download (Ctrl+S)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v8M5 7l3 3 3-3M3 11v1a1 1 0 001 1h8a1 1 0 001-1v-1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Save</span></button>
+        <button class="tbtn" id="btnPrint" title="Print (Ctrl+P)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 5V2h8v3M2 5h12v6H2V5zM4 9v5h8V9" stroke="currentColor" stroke-width="1.2"/><circle cx="12" cy="7.5" r=".7" fill="currentColor"/></svg><span>Print</span></button>
+      </div>
+      <div class="tdivider"></div>
+      <div class="tgroup">
+        <button class="tbtn" id="btnUndo" title="Undo (Ctrl+Z)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 7a5 5 0 105 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M3 4v4h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Undo</span></button>
+        <button class="tbtn" id="btnRedo" title="Redo (Ctrl+Y)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 7a5 5 0 10-5 5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M13 4v4H9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Redo</span></button>
+      </div>
+      <div class="tdivider"></div>
+      <!-- Annotation Tools -->
+      <div class="tgroup">
+        <button class="tbtn ttoggle active" data-tool="select" title="Select (V)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M4 2l8 6.5-4.5 1L5 14 4 2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg></button>
+        <button class="tbtn ttoggle" data-tool="text" title="Add Text (T)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 3h10M8 3v10M5 13h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Text</span></button>
+        <button class="tbtn ttoggle" data-tool="highlight" title="Highlight (H)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="9" width="12" height="4" rx="1" fill="#FFD600" opacity=".7"/><path d="M3 9V4l2-2h6l2 2v5" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg><span>Mark</span></button>
+        <button class="tbtn ttoggle" data-tool="draw" title="Freehand Draw (D)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 14l2-2 8-8 2 2-8 8-2-2z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Draw</span></button>
+        <button class="tbtn ttoggle" data-tool="shape" title="Shapes (S)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="11" cy="11" r="3" stroke="currentColor" stroke-width="1.2"/></svg><span>Shape</span></button>
+        <button class="tbtn ttoggle" data-tool="sticky" title="Sticky Note (N)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 2h10a1 1 0 011 1v7l-4 4H3a1 1 0 01-1-1V3a1 1 0 011-1z" stroke="currentColor" stroke-width="1.2"/><path d="M10 10v4l4-4h-4z" stroke="currentColor" stroke-width="1.2"/></svg><span>Note</span></button>
+        <button class="tbtn ttoggle" data-tool="signature" title="Signature (G)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12c2-4 3-7 5-7s2 4 3 4 2-3 4-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Sign</span></button>
+        <button class="tbtn ttoggle" data-tool="eraser" title="Eraser (E)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 5L8 10M5 13H2M3 13l4-4-3-3-4 4 3 3z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="annot-controls">
+          <input type="color" id="annotColor" value="#E8402A" title="Color"/>
+          <input type="range" id="annotSize" min="1" max="24" value="3" title="Brush size"/>
+          <select id="shapeType" class="shape-sel hidden"><option value="rect">Rect</option><option value="circle">Circle</option><option value="line">Line</option><option value="arrow">Arrow</option></select>
+          <label class="fill-lbl hidden" id="fillLbl"><input type="checkbox" id="shapeFill"/> Fill</label>
+        </div>
+      </div>
+      <div class="tdivider"></div>
+      <!-- Zoom -->
+      <div class="tgroup">
+        <button class="tbtn" id="btnZoomOut" title="Zoom Out (-)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 7h5M12 12l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="zoom-btn" id="zoomDisplay">100%</button>
+        <button class="tbtn" id="btnZoomIn" title="Zoom In (+)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M7 4.5v5M4.5 7h5M12 12l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="tbtn" id="btnFitPage" title="Fit Page (0)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 6V2h4M14 6V2h-4M2 10v4h4M14 10v4h-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></button>
+        <button class="tbtn" id="btnFitWidth" title="Fit Width (W)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M1 8h14M4 5l-3 3 3 3M12 5l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+
+    <div class="tbar-center">
+      <button class="pnav" id="btnFirst" title="First">«</button>
+      <button class="pnav" id="btnPrev" title="Previous (←)">‹</button>
+      <div class="page-row">
+        <input type="number" id="pageInput" min="1" value="1"/>
+        <span class="page-sep">/</span>
+        <span id="totalPages">1</span>
+      </div>
+      <button class="pnav" id="btnNext" title="Next (→)">›</button>
+      <button class="pnav" id="btnLast" title="Last">»</button>
+    </div>
+
+    <div class="tbar-right">
+      <button class="tbtn" id="btnSearch" title="Search (Ctrl+F)"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M12 12l2.5 2.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span>Find</span></button>
+      <div class="tdivider"></div>
+      <button class="tbtn tbtn-accent" id="btnMerge"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h5M2 8h5M2 12h5M9 6l2-2 2 2M9 10l2 2 2-2M11 4v8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Merge</span></button>
+      <button class="tbtn tbtn-accent" id="btnSplit"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M4 5l-3 3h6L4 5zM12 5l-3 3h6L12 5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Split</span></button>
+      <button class="tbtn tbtn-accent" id="btnCompress"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 13V3M5 6l3-3 3 3M5 10l3 3 3-3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Compress</span></button>
+      <!-- More dropdown -->
+      <div class="dd-wrap" id="ddWrap">
+        <button class="tbtn tbtn-more" id="btnMore">More ▾</button>
+        <div class="dd-menu hidden" id="ddMenu">
+          <button class="dd-item" id="menuWatermark">💧 Watermark</button>
+          <button class="dd-item" id="menuPageNum">🔢 Page Numbers</button>
+          <button class="dd-item" id="menuExtract">📤 Extract Pages</button>
+          <button class="dd-item" id="menuPassword">🔒 Password Protect</button>
+          <button class="dd-item" id="menuExport">🖼️ Export as Image</button>
+          <div class="dd-sep"></div>
+          <button class="dd-item" id="menuRotCCW">↺ Rotate CCW</button>
+          <button class="dd-item" id="menuRotCW">↻ Rotate CW</button>
+          <button class="dd-item" id="menuDelPage">🗑️ Delete Page</button>
+          <div class="dd-sep"></div>
+          <button class="dd-item" id="menuTheme">🌙 Toggle Theme</button>
+        </div>
+      </div>
+      <div class="tdivider"></div>
+      <button class="tbtn" id="btnToggleSidebar" title="Toggle Sidebar"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="12" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M5 2v12" stroke="currentColor" stroke-width="1.2"/></svg></button>
+    </div>
+  </header>
+
+  <!-- Search bar -->
+  <div class="search-bar hidden" id="searchBar">
+    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style="color:var(--t3);flex-shrink:0"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M12 12l2.5 2.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+    <input type="text" id="searchInput" placeholder="Search in document…"/>
+    <span id="searchStatus" class="srch-status"></span>
+    <button class="sbar-btn" id="btnSrchPrev">‹</button>
+    <button class="sbar-btn" id="btnSrchNext">›</button>
+    <button class="sbar-close" id="btnSrchClose">✕</button>
+  </div>
+
+  <div class="layout" id="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="stabs">
+        <button class="stab active" data-panel="thumbs"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><rect x="1" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="1" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="1" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="8" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.1"/></svg> Pages</button>
+        <button class="stab" data-panel="outline"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><path d="M2 3h10M2 7h8M2 11h6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg> Outline</button>
+        <button class="stab" data-panel="info"><svg width="12" height="12" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.1"/><path d="M7 6v4M7 4.5v.3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg> Info</button>
+      </div>
+      <div class="spanel active" id="panelThumbs"><div class="thumb-list" id="thumbList"></div></div>
+      <div class="spanel" id="panelOutline"><div class="outline-list" id="outlineList"><p class="empty-msg">No outline in this PDF</p></div></div>
+      <div class="spanel" id="panelInfo"><div class="info-list" id="infoList"></div></div>
+    </aside>
+
+    <main class="viewer-wrap" id="viewerWrap">
+      <div class="viewer" id="viewer">
+        <div id="pdfContainer"></div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="statusbar">
+    <span id="sbFile" class="sb-file"></span>
+    <span id="sbSize" class="sb-dim"></span>
+    <div class="sb-right">
+      <span id="sbTool" class="sb-tool"></span>
+      <span class="sb-priv">🔒 100% Private</span>
+    </div>
+  </footer>
+</div>
+
+<!-- MODALS -->
+<!-- Merge -->
+<div class="modal-ov hidden" id="modalMerge">
+  <div class="modal modal-md">
+    <div class="mhdr"><h3>Merge PDFs</h3><button class="mclose" data-close="modalMerge">✕</button></div>
+    <div class="mbody">
+      <div class="upload-zone" id="mergeZone">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 8v12M10 14l6-6 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 24v1a2 2 0 002 2h16a2 2 0 002-2v-1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <p>Drop PDFs here or <label class="inline-link">browse<input type="file" id="mergeInput" accept=".pdf" multiple style="display:none"/></label></p>
+      </div>
+      <div class="merge-list" id="mergeList"></div>
+      <p class="hint mt8">Drag rows to reorder · PDFs merged in listed order</p>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalMerge">Cancel</button><button class="btn-primary" id="btnDoMerge">Merge &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Split -->
+<div class="modal-ov hidden" id="modalSplit">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h3>Split PDF</h3><button class="mclose" data-close="modalSplit">✕</button></div>
+    <div class="mbody">
+      <div class="radio-group">
+        <label class="radio-card"><input type="radio" name="splitMode" value="all" checked/><div><strong>Every page separately</strong><small>Each page → its own file</small></div></label>
+        <label class="radio-card"><input type="radio" name="splitMode" value="range"/><div><strong>By page range</strong><small>Custom ranges, e.g. 1-3, 5, 8</small></div></label>
+        <div class="radio-child hidden" id="splitRangeWrap"><input type="text" id="splitRange" placeholder="e.g. 1-3, 5, 8-10"/></div>
+        <label class="radio-card"><input type="radio" name="splitMode" value="fixed"/><div><strong>Every N pages</strong><small>Equal chunks</small></div></label>
+        <div class="radio-child hidden" id="splitFixedWrap"><input type="number" id="splitFixed" min="1" value="2" style="width:80px"/> <span class="hint">pages per file</span></div>
+        <label class="radio-card"><input type="radio" name="splitMode" value="half"/><div><strong>Split in half</strong><small>Two equal halves</small></div></label>
+      </div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalSplit">Cancel</button><button class="btn-primary" id="btnDoSplit">Split &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Compress -->
+<div class="modal-ov hidden" id="modalCompress">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h3>Compress PDF</h3><button class="mclose" data-close="modalCompress">✕</button></div>
+    <div class="mbody">
+      <div class="compress-cards">
+        <label class="cc"><input type="radio" name="cLevel" value="low" checked/><div class="cci"><span>🔹</span><div><strong>Low Compression</strong><p>Best quality, slight reduction (~10–20%)</p></div></div></label>
+        <label class="cc"><input type="radio" name="cLevel" value="medium"/><div class="cci"><span>🔶</span><div><strong>Medium Compression</strong><p>Good quality, moderate reduction (~30–50%)</p></div></div></label>
+        <label class="cc"><input type="radio" name="cLevel" value="high"/><div class="cci"><span>🔴</span><div><strong>High Compression</strong><p>Lower quality, max reduction (~60–80%)</p></div></div></label>
+      </div>
+      <div class="compress-info">Original: <strong id="cOrigSize">—</strong></div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalCompress">Cancel</button><button class="btn-primary" id="btnDoCompress">Compress &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Watermark -->
+<div class="modal-ov hidden" id="modalWatermark">
+  <div class="modal modal-md">
+    <div class="mhdr"><h3>Add Watermark</h3><button class="mclose" data-close="modalWatermark">✕</button></div>
+    <div class="mbody">
+      <div class="fg"><label>Text</label><input type="text" id="wmText" value="CONFIDENTIAL"/></div>
+      <div class="fg-row">
+        <div class="fg"><label>Color</label><input type="color" id="wmColor" value="#cccccc"/></div>
+        <div class="fg"><label>Opacity <span id="wmOpVal">30%</span></label><input type="range" id="wmOpacity" min="5" max="90" value="30"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Angle <span id="wmAngVal">-45°</span></label><input type="range" id="wmAngle" min="-90" max="90" value="-45"/></div>
+        <div class="fg"><label>Font Size <span id="wmSzVal">72</span></label><input type="range" id="wmSize" min="12" max="200" value="72"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Apply to</label><select id="wmPages"><option value="all">All pages</option><option value="current">Current page</option><option value="odd">Odd pages</option><option value="even">Even pages</option></select></div>
+        <div class="fg"><label>Layout</label><select id="wmPos"><option value="center">Center</option><option value="tile">Tiled</option></select></div>
+      </div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalWatermark">Cancel</button><button class="btn-primary" id="btnDoWatermark">Apply &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Page Numbers -->
+<div class="modal-ov hidden" id="modalPageNum">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h3>Add Page Numbers</h3><button class="mclose" data-close="modalPageNum">✕</button></div>
+    <div class="mbody">
+      <div class="fg-row">
+        <div class="fg"><label>Position</label><select id="pnPos"><option value="bottom-center">Bottom Center</option><option value="bottom-right">Bottom Right</option><option value="bottom-left">Bottom Left</option><option value="top-center">Top Center</option><option value="top-right">Top Right</option><option value="top-left">Top Left</option></select></div>
+        <div class="fg"><label>Start at</label><input type="number" id="pnStart" min="1" value="1"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Format</label><select id="pnFormat"><option value="n">1, 2, 3…</option><option value="page-n">Page 1, Page 2…</option><option value="n-of-t">1 of 10…</option></select></div>
+        <div class="fg"><label>Font Size</label><input type="number" id="pnSize" min="6" max="36" value="12"/></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Skip first N pages</label><input type="number" id="pnSkip" min="0" value="0"/></div>
+        <div class="fg"><label>Color</label><input type="color" id="pnColor" value="#555555"/></div>
+      </div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalPageNum">Cancel</button><button class="btn-primary" id="btnDoPageNum">Apply &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Password -->
+<div class="modal-ov hidden" id="modalPassword">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h3>Password Protect PDF</h3><button class="mclose" data-close="modalPassword">✕</button></div>
+    <div class="mbody">
+      <p class="modal-desc">Set a password required to open this PDF. Note: pdf-lib encryption is AES-128.</p>
+      <div class="fg"><label>User Password (to open)</label><input type="password" id="pwUser" placeholder="Required to open"/></div>
+      <div class="fg"><label>Confirm Password</label><input type="password" id="pwConfirm" placeholder="Confirm"/></div>
+      <div class="fg"><label>Owner Password (optional, for editing)</label><input type="password" id="pwOwner" placeholder="Optional"/></div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalPassword">Cancel</button><button class="btn-primary" id="btnDoPassword">Encrypt &amp; Download</button></div>
+  </div>
+</div>
+
+<!-- Export Image -->
+<div class="modal-ov hidden" id="modalExport">
+  <div class="modal modal-sm">
+    <div class="mhdr"><h3>Export Pages as Images</h3><button class="mclose" data-close="modalExport">✕</button></div>
+    <div class="mbody">
+      <div class="fg-row">
+        <div class="fg"><label>Format</label><select id="expFmt"><option value="png">PNG (lossless)</option><option value="jpeg">JPEG</option><option value="webp">WebP</option></select></div>
+        <div class="fg"><label>Scale / DPI</label><select id="expScale"><option value="1">1× (72 dpi)</option><option value="2" selected>2× (144 dpi)</option><option value="3">3× (216 dpi)</option><option value="4">4× (288 dpi)</option></select></div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Pages</label><select id="expPages"><option value="all">All pages</option><option value="current">Current page only</option><option value="range">Custom range</option></select></div>
+        <div class="fg"><label>JPEG/WebP Quality</label><input type="range" id="expQuality" min="60" max="100" value="92"/></div>
+      </div>
+      <div class="fg hidden" id="expRangeWrap"><label>Range</label><input type="text" id="expRange" placeholder="e.g. 1-3, 5"/></div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalExport">Cancel</button><button class="btn-primary" id="btnDoExport">Export Images</button></div>
+  </div>
+</div>
+
+<!-- Signature -->
+<div class="modal-ov hidden" id="modalSig">
+  <div class="modal modal-md">
+    <div class="mhdr"><h3>Add Signature</h3><button class="mclose" data-close="modalSig">✕</button></div>
+    <div class="mbody">
+      <div class="sig-tabs">
+        <button class="sig-tab active" data-sigtab="draw">✏️ Draw</button>
+        <button class="sig-tab" data-sigtab="type">⌨️ Type</button>
+      </div>
+      <div class="sig-panel active" id="sigDrawPanel">
+        <canvas id="sigCanvas" width="480" height="150"></canvas>
+        <div class="sig-actions">
+          <button class="btn-ghost btn-sm" id="btnSigClear">Clear</button>
+          <div class="sig-colors">
+            <button class="sigcol active" data-col="#111111" style="background:#111111" title="Black"></button>
+            <button class="sigcol" data-col="#003087" style="background:#003087" title="Blue"></button>
+            <button class="sigcol" data-col="#8B0000" style="background:#8B0000" title="Dark Red"></button>
+          </div>
+        </div>
+      </div>
+      <div class="sig-panel" id="sigTypePanel">
+        <input type="text" id="sigTextInput" placeholder="Type your name or initials" class="sig-type-input"/>
+        <div class="sig-font-list">
+          <button class="sig-font active" data-sigfont="'Dancing Script', cursive" style="font-family:'Dancing Script',cursive">Signature</button>
+          <button class="sig-font" data-sigfont="Georgia, serif" style="font-family:Georgia,serif">Signature</button>
+          <button class="sig-font" data-sigfont="Arial, sans-serif" style="font-family:Arial,sans-serif">Signature</button>
+          <button class="sig-font" data-sigfont="'Courier New', monospace" style="font-family:'Courier New',monospace">Signature</button>
+        </div>
+      </div>
+    </div>
+    <div class="mftr"><button class="btn-ghost" data-close="modalSig">Cancel</button><button class="btn-primary" id="btnInsertSig">Insert Signature</button></div>
+  </div>
+</div>
+
+<!-- Text annotation popup -->
+<div class="text-popup hidden" id="textPopup">
+  <div class="tpop-bar">
+    <select id="tpSize"><option value="10">10</option><option value="12">12</option><option value="14">14</option><option value="16" selected>16</option><option value="20">20</option><option value="24">24</option><option value="32">32</option><option value="48">48</option></select>
+    <select id="tpFont"><option value="DM Sans">DM Sans</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option><option value="Courier New">Mono</option></select>
+    <input type="color" id="tpColor" value="#111111" title="Color"/>
+    <label style="font-size:11px;color:var(--t2);display:flex;align-items:center;gap:4px;cursor:pointer"><input type="checkbox" id="tpBg" checked/> BG</label>
+    <button class="tpop-x" id="btnTpClose">✕</button>
+  </div>
+  <textarea id="tpText" placeholder="Type annotation…"></textarea>
+  <div class="tpop-ftr">
+    <button class="btn-ghost btn-sm" id="btnTpCancel">Cancel</button>
+    <button class="btn-primary btn-sm" id="btnTpAdd">Add</button>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast hidden" id="toast"></div>
+
+<!-- Loading overlay -->
+<div class="loading-ov hidden" id="loadingOv">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <p id="loadingMsg">Processing…</p>
+  </div>
+</div>
+
+<input type="file" id="openInput" accept=".pdf,application/pdf" style="display:none"/>
+
+<!-- CDN Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+
+<!-- App -->
+<script src="js/utils.js"></script>
+<script src="js/history.js"></script>
+<script src="js/pdfEngine.js"></script>
+<script src="js/drawing.js"></script>
+<script src="js/annotations.js"></script>
+<script src="js/signature.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/export.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
