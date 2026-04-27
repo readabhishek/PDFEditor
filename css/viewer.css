@@ -58,6 +58,19 @@
   .page-label,.thumb-actions{display:none!important}
 }
 
+/* ===== INLINE TEXT EDITOR ===== */
+.te-layer{position:absolute;top:0;left:0;pointer-events:none;z-index:8}
+.te-layer.te-hidden{display:none}
+.te-layer .te-item{position:absolute;display:inline-block;white-space:pre;color:transparent;caret-color:#111;
+  transform-origin:0 0;pointer-events:auto;cursor:text;padding:0;margin:0;border:1px dashed transparent;
+  border-radius:2px;outline:none;background:transparent;-webkit-font-smoothing:antialiased;
+  font-stretch:100%;letter-spacing:0;line-height:1}
+body.te-mode .te-layer .te-item{border-color:rgba(232,64,42,.25)}
+body.te-mode .te-layer .te-item:hover{border-color:rgba(232,64,42,.7);background:rgba(232,64,42,.06)}
+.te-layer .te-item.te-active{color:#111;background:#fff;border-color:var(--accent);box-shadow:0 0 0 2px rgba(232,64,42,.18);z-index:2}
+.te-layer .te-item.te-modified{color:#111;background:#fff;border-color:rgba(232,64,42,.55)}
+.te-layer .te-cover{position:absolute;background:#fff;pointer-events:none;transform-origin:0 0;z-index:1}
+
 /* PDF.js text layer */
 .page-text-layer {
   opacity: 0.25;

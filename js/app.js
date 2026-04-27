@@ -106,6 +106,7 @@ const App = {
     container.innerHTML = '';
     DrawingManager.clearAll();
     AnnotationManager.clearAll();
+    if (window.TextEditor) TextEditor.reset();
     History.reset();
 
     await PdfEngine.renderAll(container);
@@ -228,7 +229,7 @@ const App = {
     const wrap = $('viewerWrap');
     const cursors = { text:'text', draw:'crosshair', eraser:'cell', highlight:'crosshair',
       underline:'crosshair', strikethrough:'crosshair', shape:'crosshair', line:'crosshair',
-      sticky:'copy', sign:'crosshair', select:'default' };
+      sticky:'copy', sign:'crosshair', select:'default', editText:'text' };
     if (wrap) wrap.style.cursor = cursors[tool] || 'default';
 
     // Enable draw layer for drawing tools
@@ -241,8 +242,17 @@ const App = {
       l.style.pointerEvents = annotTools.includes(tool) ? 'auto' : 'none';
     });
 
+    // Inline text editor — show/hide editable text overlays
+    if (window.TextEditor) {
+      if (tool === 'editText') TextEditor.activate();
+      else TextEditor.deactivate();
+    }
+
     const sbTool = $('sbTool');
-    if (sbTool) sbTool.textContent = tool.charAt(0).toUpperCase() + tool.slice(1);
+    if (sbTool) {
+      sbTool.textContent = tool === 'editText' ? 'Edit Text' :
+        tool.charAt(0).toUpperCase() + tool.slice(1);
+    }
 
     // Sign tool: open modal if no pending signature
     if (tool === 'sign') {
@@ -608,6 +618,7 @@ const App = {
   bindKeyboard() {
     document.addEventListener('keydown', e => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.target.isContentEditable) return;
       if (!AppState.loaded && !['?'].includes(e.key)) return;
 
       const ctrl = e.ctrlKey || e.metaKey;
@@ -631,6 +642,7 @@ const App = {
         case '0': this.fitPage(); break;
         case 'v': case 'V': this.setTool('select'); break;
         case 't': case 'T': this.setTool('text'); break;
+        case 'x': case 'X': this.setTool('editText'); break;
         case 'd': case 'D': this.setTool('draw'); break;
         case 'e': case 'E': this.setTool('eraser'); break;
         case 'h': case 'H': this.setTool('highlight'); break;
@@ -676,7 +688,7 @@ const App = {
       ['First / Last','Home / End'], ['Zoom in/out','+ / -'],
       ['Fit page','0'], ['Zoom with scroll','Ctrl+Wheel'],
       ['Toggle sidebar','Tab'], ['Close / Reset','Esc'],
-      ['',''], ['Select tool','V'], ['Text tool','T'], ['Draw','D'],
+      ['',''], ['Select tool','V'], ['Text tool','T'], ['Edit Text','X'], ['Draw','D'],
       ['Eraser','E'], ['Highlight','H'], ['Underline','U'],
       ['Shape','S'], ['Line','L'], ['Sticky note','N'], ['Sign','G'],
     ];

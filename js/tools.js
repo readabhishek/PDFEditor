@@ -264,7 +264,18 @@ const PdfTools = {
     if (!PdfEngine.pdfLibDoc) return;
     showLoading('Saving…');
     try {
-      downloadBytes(await PdfEngine.pdfLibDoc.save(), PdfEngine.fileName||'document.pdf');
+      // If the user edited text inline, bake those edits into a fresh pdf-lib doc
+      const hasTextEdits = window.TextEditor && TextEditor.hasModifications();
+      let outBytes;
+      if (hasTextEdits) {
+        const srcBytes = await PdfEngine.pdfLibDoc.save();
+        const doc = await PDFLib.PDFDocument.load(srcBytes);
+        await TextEditor.applyEditsToPdfLib(doc);
+        outBytes = await doc.save();
+      } else {
+        outBytes = await PdfEngine.pdfLibDoc.save();
+      }
+      downloadBytes(outBytes, PdfEngine.fileName||'document.pdf');
       showToast('✓ Downloaded!','success');
     } catch(e) { showToast('Save failed: '+e.message,'error'); }
     finally { hideLoading(); }

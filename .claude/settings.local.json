@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m ':*)",
+      "Bash(git remote:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(ssh-keygen -R github.com)",
+      "Bash(node --check d:/workspace/PDFEditor/js/textEditor.js)",
+      "Bash(node --check d:/workspace/PDFEditor/js/app.js)",
+      "Bash(node --check d:/workspace/PDFEditor/js/tools.js)"
+    ]
+  }
+}
